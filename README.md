@@ -35,3 +35,28 @@
         - Singleton을 이해하고 있는지 
         - Dependency Injection(DI)를 잘 이해하고 있는지 
         
+### Item 6. 불필요한 객체 생성 금지 
+    - Boxing type 대신 Primitive Type을 권장 (ex. Long 대신 long) 
+    - 그렇다고 항상 primitive type이 옳은 것은 아니다. (ex. 물건의 가격이 0인 것과 null인 것의 의미는 다르다.) 
+    
+    - 생각해봐야 할 것
+        - 무심결에 Instance를 과도하게 생성하지는 않았는지
+        - Primitive Type과 Boxing Type을 의도하고 사용하였는지 
+       
+### Item 7. 다 쓴 객체 참조를 해제하라 
+    - 우아하게 참조를 해제하는 법 
+        - 유효 Scope 밖으로 넘어가면 자동으로 GC의 대상이 된다. (Unreachable Object가 되었을 때) 
+
+    - 생각해봐야 할 것 
+        - Array를 잘 쓰고 있었는지? 
+        - 메모리 구조에 대해 이해하고 있는지 : Heap, Stack, Method Area 등 
+        - Gabage Collector가 동작하는 원리에 대해 잘 이해하고 있는지 
+        - JVM 
+        
+### Item 8. finalizer, cleaner를 피하라 
+    - 특수한 상황이 아니라면 사용하지 않는 것을 추천
+    - 안전망 역할로 아주 제한적으로 사용 가능함 
+    
+### Item 9. try-finally 대신 try-with-resources 
+
+###
