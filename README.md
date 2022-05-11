@@ -1,6 +1,6 @@
 # Effective Java 
 
-## Chapter2. 객체의 생성과 파괴
+## Chapter 2. 객체의 생성과 파괴
 
 ### Item 1. Constructor 대신 Static Factory Method를 고려하라
     (+) 장점 
@@ -59,4 +59,65 @@
     
 ### Item 9. try-finally 대신 try-with-resources 
 
-###
+
+## Chapter 3. 모든 객체의 공통 메서드
+
+### Item 10. equals의 일반 규약을 지켜 재정의하라. 
+    - Equals의 전형적인 검사 패턴
+        1. ==를 통해 input이 자기 자신의 참조인지 
+        2. Instanceof(or getClass)를 통해 input의 타입이 명확한지 
+        3. 2를 통해 검사한 객체를 올바른 타입으로 형변환 
+        4. 핵심 필드들이 모두 일치하는지 
+        5. [not null] if x is not null, then x.equals(null) => false 
+    
+    - Override시 주의사항 
+        1. 만족해야 하는 조건을 만족시켰는가 
+        2. Equals를 재정의할 때 hascode도 재정의하였는가 
+        3. Equals의 input이 Object인가 (Overriding 하였는가) 
+        4. 핵심 필드들이 모두 일치하는지 
+        5. [not null] if x is not null, then x.equals(null) => false 
+        
+### Item 11. equals를 재정의하려거든 hascode도 함께 재정의하라     
+    - == : primitive type일 때는 value compare, reference type일 때는 주소가 같은지 비교 
+    - equals() : 같은 객체인지 (default는 ==과 동일함, oveerride하여 사용) 
+    - hashcode() : 논리적으로 같은 객체라면 같은 hashcode를 반환해야 한다. 
+    
+    - equals는 필요할 때 적재적소에 활용하자 
+    - equals를 override한다면 hashcode의 override는 필수 
+    - Lombok을 사용한다면 @Data, @EqualsAndHashcode의 동작원리 확인
+
+### Item 12. toString을 항상 override하라 
+    - toString의 default value : className@16진수 hashcode
+    - Lombok의 @ToString 
+    
+    - 로그를 찍을 일이 있으면 toString을 overriding
+    - 전부 다 toString으로 출력하지 말고, 필요한 것 위주로 작성 
+
+### Item 13. clone 재정의는 주의해서 사용하라 
+    - Clone은 
+        Primitive type의 배열이 아니면 쓰지 말자 
+        Copy Constructor or Copy Factory method를 활용하라 
+        Cloneable을 확장하지마라 
+
+### Item 14. Comparable을 구현할지 고려하라 
+    - compareTo의 규약 (equals와 비슷) 
+        - 객체와 주어진 객체의 순서를 비교한다. 
+        - 이 객체가 주어진 객체보다 작으면 음의 정수, 같으면 0, 크면 양의 정수를 반환. (-1, 0, 1)
+        - 비교할 수 없을 땐 ClassCastException
+        
+    - 필요하다면 적절하게 Comparable을 구현하여 compareTo으 ㅣ이점을 누릴 수 있다. 
+    - 하지만 정렬의 기준이 고정이 아니라면, 다른 방식(ex. Method, service를 통한 조건 별 ordering)을 고려해 볼 수 있다. 
+
+
+## Chapter 4. 클래스와 인터페이스 
+
+### Item 15. 
+
+### Item 16. 
+
+### Item 17.
+
+### Item 18. 
+
+### Item 19. 
+
