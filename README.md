@@ -111,13 +111,71 @@
 
 ## Chapter 4. 클래스와 인터페이스 
 
-### Item 15. 
+### Item 15. 클래스와 멤버의 접근 권한을 최소화하라
+    - public class의 instance field 
+        1. public으로 열 경우 thread safe하지 못하다. (Lock류의 작업을 걸 수 없음) 
+        2. 꼭 필요한 상수라면 예외적으로 public static final로 공개할 수 있다. 
+        3. [주의사항] public static final Thing[] VALUES = {...} 는 수정이 가능하다. 
 
-### Item 16. 
+    - 위 3번 배열의 두 가지 해결책 
+        - 배열을 private으로 만들고, 불변 리스트를 추가 
+            1. 읽기전용으로 response
+            2. 원본이 바뀔 경우 같이 변경됨 
+        - 배열을 private으로 두고, 복사본을 반환하는 public method 
+            1. 해당 시점으로 clone됨. 
+            2. 원본이 바뀔 경우 같이 변경되지 않음 
+     
+### Item 16. public class에서는 get method를 통해 필드에 접근하라
+    - 생각해볼만한 점 
+        - 캡슐화는 꼭 한 번 다시 점검해보자.
+        - 접근제어자는 습관적으로 항상 최소로 사용하자.
 
-### Item 17.
+### Item 17. 변경 가능성을 최소화하라 
+    - Immutable class 불변 클래스 (내부를 수정할 수 없음)
+        1. 상태 변경 method(ex. Set method)를 제공하지 않는다. 
+        2. Class 확장힞 않도록 한다. (ex. Final) 
+        3. 모든 field를 final로 선언한다. 
+        4. 모든 field를 private으로 선언한다. 
+        5. 자신을 제외하고는 아무도 가변 컴포넌트에 접근할 수 없도록 한다. 
+        
+    - BigInteger (Immutable class example) 
+        - Immutable class의 조건
+            1. Thread safe 
+            2. failure atomicity - 예외가 발생 후에도 유효한 상태 
+            3. 값이 다르면 무조건 독립적인 객체로 생성되어야 함 
+        - 중간 단계 (객체가 완성 중인 상태)를 극복하기 위한 방법
+            - statif factory method를 통해 new instance를 생성해 response (ex. StringBuilder) 
+     
+    - 습관적으로 Setter를 만들지 말자 (setter가 불필요할 수도 있다.)
+    - Class는 꼭 필요한 경우가 아니면 불변이어야 한다. (특히 단순한 Value Object는 더 그러함)
+    - 모든 클래스가 불변일 수 없지만, 변경할 수 있는 부분을 최대한 줄여보자. 
+            
+### Item 18. 상속보다는 컴포지션을 사용하라
+    - Composite pattern ( composite : 합성 ) 
+    - 상속은 캡슐화를 해칠 수 있기 때문에 pure한 is-a 관계일 때만 써야 한다. 
+    - Wrapper class(Drawer)가 class를 확장하여 사용하는 것보다 더 견고하다. 
 
-### Item 18. 
+### Item 19. 상속을 고려해 설계하고 문서화하라. 그러지 않았다면 상속을 금지하라 
+    - 상속을 금지하는 방법
+        - Class를 final로 선언 
+        - 모든 생성자를 private or package-private로 선언하고 public static facotry로 만들기 
+     
+    - 올바르게 상속을 고려하려면 
+        - @implSpec을 통해 상속할 때 필요한 내용을 서술한다. 
+        - Clone과 readObject 모두 직/간접적으로 재정의 가능 method를 호출해서는 안 된다. 
+        - 검증방법 : 하위 Objecct를 만들어 테스트 해보면 좋다. 
+         
+    - 상속보다는 interface를 통한 구현을 추천
+    - 변수 몇 개가 겹친다고해서 꼭 상속을 통한 확장을 해야한다는 것을 의미하는 것은 아니다. 
+    
+### Item 20. 
 
-### Item 19. 
+### Item 21. 
 
+### Item 22.
+
+### Item 23. 
+
+### Item 24. 
+
+### Item 25.
