@@ -168,14 +168,39 @@
     - 상속보다는 interface를 통한 구현을 추천
     - 변수 몇 개가 겹친다고해서 꼭 상속을 통한 확장을 해야한다는 것을 의미하는 것은 아니다. 
     
-### Item 20. 
+### Item 20. Abstract class보다는 interface를 우선하라 
+    - class의 extends는 하나만 가능 
+    - interface의 implements는 여러개 가능 
+    - Skeletal implementation (추상 골격 구현) 
+        1. Interface로 뼈대를 만들고
+        2. Abstract class로 필요한 구현을 모두 마친 후 
+        3. Subclass로 마무리하는 것
+        * 주의사항 : Object method(equals, toString, ...)는 default 메서드로 제공하면 안된다. 
+    - 뼈대를 만들 때에는 default method가 대안이 될 수 있다. 
+    
+### Item 21. 인터페이스는 구현하는 쪽을 생각해 설계하라 
 
-### Item 21. 
+### Item 22. 인터페이스는 타입을 정의하는 용도로만 사용하라 
+    - Constant static final은 anti pattern 
+        - 클래스 내부에서 사용하는 상수는 내부 구현에 해당된다. 
+        - 차라리 클래스에 static final로 추가하는 것이 더 낫다. 
+        - 여러 곳에서 사용해야 할 값이라면 util class 
+    - 인터페이스를타입을 정리하는 용도로만 쓰고 상수 공개용으로 사용하지 마라. 필요하다면 Class에 담아라 
+    - Properties에 값을 선언해 두고 injection을 하는 것도 방법일 수 있다.
 
-### Item 22.
+### Item 23. 태그 달린 클래스보다는 클래스 계층구조를 활용하라
+    - 태그 달린 클래스를 써야 하는 상황은 거의 없다. 
+    - 이미 태그가 달려 있다면, 계층 구조로 리팩토링 하는 것을 생각해보자
 
-### Item 23. 
+### Item 24. 멤버 클래스는 되도록 static으로 만들라 
+    - Nested class 
+        - Method 밖에서 사용할 것이다 - member class
+            - 그 중 member class가 바깥 instance를 참고한다 -> non-static 
+            - 그 외 -> static 
+        - 딱 한 곳에서 사용하고 사전 struct가 있다 -> Anonymous class 
+        - 그 외 -> local class
 
-### Item 24. 
+### Item 25. Top level 클래스는 한 파일에 하나만 담아라
 
-### Item 25.
+
+## Chapter 5.
