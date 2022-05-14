@@ -214,8 +214,7 @@
     - 만약 안전하다고 확신할 수 있으면 @SuppressWarnings("unchecker")를 통해 경고를 숨기자.
     
 ### Item 28. 배열 대신 리스트를 사용하라 
-    - 코딩 테스트 환경에서는 Array가 미세하게 더 유리할 수는 있겠지만, 
-    우리가 만드는 Product level에서는 ArrayList만으로도 충분하다.
+    - 코딩 테스트 환경에서는 Array가 미세하게 더 유리할 수는 있겠지만, Product level에서는 ArrayList만으로도 충분하다.
 
 ### Item 29. 이왕이면 제네릭 타입으로 만들라 
     - E : Element 
