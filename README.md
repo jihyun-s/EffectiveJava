@@ -244,6 +244,32 @@
 ### Item 33. 타입 안정 이종 컨테이너를 고려하라 
 
 
-## 
+## Chapter 6. 열거 타입과 어노테이션 
 
+### Item 34. int 상수 대신 enum을 사용하라 
+    - fromString method (자주 쓰이는 pattern) 
+        - 타 서버에서 불확실성을 가지고 enum이 넘어오거나 db 등의 값을 처리할 때 유용할 수 있다. 
+        - ex. String으로 받아와서 enum으로 변환 
+    - Enum화 시킬 수 있는 상황이면 가급적 하는 것이 좋다.
+    - 외부 type의 symbol이 불안정하다면 fromString을 통한 방안도 고려할만하다.
+        
+### Item 35. ordinal method 대신 instant field를 사용하라 
+    - Enum에서 ordinal()로 enum의 번호를 반환해줌 
+    - Ordinal는 EnumSet, EnumMap과 같이 열거 타입 기반의 자료구조에 사용
+    
+### Item 36. bit field 대신 EnumSet을 사용하라 
+
+### Item 37. ordinal indexing 대신 EnumMap을 사용하라 
+
+### Item 38. 확장할 수 있는 열거 타입이 필요하면 인터페이스를 사용하라 
+
+### Item 39. 명명 패턴보다 Annotation을 사용하라 
+
+### Item 40. @Override 어노테이션을 일관되게 사용하라 
+    - @Override annotation을 사용하지 않아도 되는 경우
+        - 추상 메서드를 재정의할 때
+
+### Item 41. 정의하려는 것이 타입이라면 마커 인터페이스를 사용하라 
+
+##
 
