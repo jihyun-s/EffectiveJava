@@ -420,10 +420,50 @@
         - 반환 타입이 Boolean, void가 아니거나 해당 인스턴스의 속성을 반환한다면 get을 (보통) 사용한다.
         - 객체의 타입을 바꾼다면 to~(toArray, toList, toString)
 
-## Chapter 10. 
+## Chapter 10. 예외
 
-### Item 
-### Item 
-### Item 
+### Item 69. 예외는 진짜 예외 상황에만 사용하라 
 
+### Item 70. 복구할 수 있는 상황에서는 검사 예외를, 프로그래밍 오류에는 런타임 예외를 사용하라
+    - Checked Exception : 명시적인 예외 처리 필요. 롤백이 일어남
+    - Unchecked Exception : 명치적인 처리를 강제하지 않는다. 롤백 안일어남 
+    - 호출하는 쪽에서 복구하리라 여겨지는 상황이면 Checked Exception을, 
+      그 외라면 (프로그래밍 오류라면) RuntimeException을 확장한 Unchecked Exception을 이용해 예외를 던지자. 
+
+### Item 71. 필요없는 검사 예외 사용은 피하라
+    - 의미없는 예외 처리는 하지 말자
+    - 검사 예외를 던지는 대신 상태 검사 메서드를 활용하라
+
+### Item 72. 표준 예외를 사용하라
+    - IllegalArgumentException : 허용하지 않는 값이 인수로 건네졌을 때 (null은 NullPointerException으로 처리) 
+    - IllegalStateException : 객체가 메서드를 수행하기에 적절하지 않은 상태일 때
+    - NullPointerException : null을 허용하지 않는 메서드에 null을 건넸을 때 
+    - IndexOutOfBoundsException : 인덱스가 범위를 넘어섰을 때 
+    - ConcurrentModificationException : 허용하지 않는 동시 수정이 발견됐을 때 
+    - UnsupportedOperationException : 호출한 메서드를 지원하지 않을 때
+
+### Item 73. 추상화 수준에 맞는 예외를 던져라
+
+### Item 74. 메서드가 던지는 모든 예외를 문서화하라
+    - Checked Exception은 항상 따로따로 선언하고 Javadoc의 @throws를 사용하여 문서화하자
+
+### Item 75. 예외의 상세 메시지에 실패관련 정보를 담아라
+
+### Item 76. 가능한 한 실패 원자적으로 만들라
+    - 호출된 메서드가 실패하더라도 해당 객체는 메서드 호출 전 상태를 유지해야 한다. 
+
+### Item 77. 예외를 무시하지 말라 
+    - Catch 블럭에서는 반드시 필요한 일을 할 것 
+    - 만약 예외를 무시하기로 했다면 Catch 블록 안에 명확한 이유를 주석으로 남기고, 
+      예외 변수의 이름도 ignored로 바꿔라
+
+## Chapter 11. 동시성
+
+### Item 78. 
+### Item 79.
+### Item 80. 
+### Item 81. 
+### Item 82. 
+### Item 83. 
+### Item 84. 
 
