@@ -459,11 +459,62 @@
 
 ## Chapter 11. 동시성
 
-### Item 78. 
-### Item 79.
-### Item 80. 
-### Item 81. 
-### Item 82. 
-### Item 83. 
-### Item 84. 
+### Item 78. 공유 중인 가변 데이터는 동기화에 사용하라 
 
+### Item 79. 과도한 동기화는 피하라 
+    - 응답 불가와 안전 실패(safety failure)를 피하려면 동기화 메서드나 동기화 블록 안에서는 
+      제어를 절대로 클라이언트에 양도하면 안된다. 
+    - Fail fast : 가능한 빨리 실패를 노출하고 전체 작업을 중지한다. 
+    - Safety failure : 실패 시에도 작업을 중단하지 않는다. 
+    - 성능이 떨어지는 이유 : 동기화 영역에서는 가능한 일을 적게 하자 
+    - Deadlock (교착상태) 
+        1. 상호배제 (Mutual Exclusion) : 한 번에 하나의 프로세스만 자원을 사용
+        2. 점유대기 (Hold and Wait) : 프로세스가 자원을 이미 점유하고 있으면서 다른 프로세스에 점유된 자원을 위해 대기
+        3. 비선점 (No Preemption) : 프로세스에 할당된 자원은 빼앗을 수 없음 
+        4. 순환대기 (Circular wait) : 프로세스가 서로의 자원을 점유하기 위해 대기 
+
+### Item 80. 스레드보다는 실행자, 태스트, 스트림을 애용하라 
+    - Executor Framework (실행자 Framework) 
+        - 특정 Task가 완료되기를 기다린다. 
+        - Task 모음 중 아무것 하나(invokeAny method) 혹은 모든 태스크(invoke All method)가 완료되기를 기다린다. 
+        - Executor service가 종료하기를 기다린다. (awaitTermination method) 
+        - 완료된 task의 결과를 차례로 받는다. (ExcutorCompletionService) 
+        - Task의 Scheduling이 가능하다. (특정 시간 혹은 주기적으로) 
+
+### Item 81. wait와 notify보다는 동시성 유틸리티를 애용해라 
+    - java.util.concurrent 
+        - Executor framework 
+        - Concurrent collection 
+        - synchronizer 
+    - SynchronizedMap vs ConcurrentHashMap
+        - 과거 단일 thread에서는 HashMap, Multi thread에서는 SynchronizedMap을 사용
+        - ConcurrentHashMap은 SysnchronizedMap으로 감싼 HashMap이나 HashTable보다 빠르다. 
+          (Map 전체에 synchronize lock을 거는 것이 아닌 map을 여러 조각으로 쪼개어 걸기 때문에 효율 증대) 
+    - wait는 항상 표준 관용구에 따라 while 안에서 호출하자 
+    - Multi thread 환경에서 사용해야 한다면 ConcurrentHashMap을 사용하라 
+
+### Item 82. 스레드 안정성 수준을 문서화하라 
+    - 스레드 안정성이 높은 순
+        - 불변 Immutable 
+        - 무조건적 스레드 안전 Unconditionally thread-safe
+        - 조건부 스레드 안전 conditinally thread-safe
+        - 스레드 안전하지 않음 not thread-safe
+        - 스레드 적대적 thread-hotile 
+
+### Item 83. 지연 초기화는 신중히 사용하라 
+    - static field, instance field의 lazy init (꼭 필요할 때만) 
+
+### Item 84. 프로그램의 동작을 스레드 스케줄러에 기대지 말라
+    - 스레드는 당장 처리해야 할 작업이 없다면 실행해서는 안됨. 
+    - Thread.yield()
+        - 호출한 메서드를 대기로 돌리고, 동일한 우선순위, 높은 우선순위를 가지는 다른 스레드에게 기회를 양보한다. 
+          ( 단지 hint 이다. ) 
+
+## Chapter 12. 직렬화
+
+### Item 85. 
+### Item 86. 
+### Item 87. 
+### Item 88. 
+### Item 89. 
+### Item 90. 
