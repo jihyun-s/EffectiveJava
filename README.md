@@ -510,9 +510,50 @@
         - 호출한 메서드를 대기로 돌리고, 동일한 우선순위, 높은 우선순위를 가지는 다른 스레드에게 기회를 양보한다. (단지 hint 이다.) 
 
 ## Chapter 12. 직렬화
-### Item 85. 
-### Item 86. 
-### Item 87. 
-### Item 88. 
-### Item 89. 
-### Item 90. 
+### Item 85. 자바 직렬화의 대안을 찾으라 
+    - Serialize 
+        - Object -> ByteStream -> File/Memory/Database -> ByteStream -> Object
+    - JSON
+        - JavaScript Object Notation 경량 데이터 교환 형식 
+        - No schema 
+        - Text 형식 ( key, value쌍 )
+        - 가볍고 다른 직렬화 기술들보다 빠르다 
+        - 문자열, 숫자, JSON객체, 배열, boolean, null (class와 function 지원하지 않음) 
+    - Protocal Buff
+        - 데이터를 인코딩하는 방법 (Google에서 구조화된 데이터의 직렬/역직렬화 위해 개발) 
+        - 메세지를 정의하고 교환하기 위한 규칙 필요 
+        - Binary 
+        - JSON보다 빠르다 
+        - 폭넓은 데이터 유형 지원 
+
+### Item 86. Serializable을 구현할지는 신중히 결정하라 
+    - Warning Point 
+        - 일단 구현하고 나면 돌이킬 수 없다. (이미 해당 스펙을 구현하고 있다로 알기 때문에) 
+        - 버그와 보안 구멍이 생길 위험이 높아진다. (우회 객체 생성) 
+        - 테스트 범위가 늘어난다. (serialize 검사) 
+        - 상속용으로 설계된 클래스는 대부분 Serializable을 구현하면 안되며, 인터페이스 또한 마찬가지이다. 
+        - 내부 클래스는 직렬화를 구현하지 말아야 한다. 
+        
+### Item 87. 커스텀 직렬화 형태를 고려해보라 
+    - Transient로 선언한 필드는 직렬화 대상에서 제외됨 
+    - 직렬화 가능한 클래스에 UID를 명시해두면 직렬 버전 UID가 일으키는 잠재적 호환성 문제가 사라진다. 
+      또한 런타임시 이 값을 생성하지 않아도 되기 때문에 속도 향상 있음. (대신 호환성이 깨지므로 UID를 수정하지 말 것) 
+
+### Item 88. readObject 메서드는 방어적으로 사용하라
+    - 안전한 readObject
+        - Private이어야 하는 객체 참조 필드는 각 필드가 가리키는 객체를 방어적으로 복사하라. (immutable class 내의 가변 요소) 
+        - 모든 불변식을 검사하여 어긋나는 것이 발견되면 InvalidObjectException을 던진다. 
+        - Deserialize 후 Object Graph의 유효성을 검사해야 한다면 ObjectInputValidation 인터페이스 사용
+        - 직/간접적으로 재정의할 수 있는 메서드는 호출하지 말자
+        
+### Item 89. 인스턴스 수를 통제해야 한다면 readResolve보다는 열거 타입을 사용하라 
+    - readResolve 
+        - 싱글톤 형태를 유지하기 위함
+        - Deserialize 중에 readObject 메서드가 존재하더라도 readResolve 메서드에서 반환한 인스턴스로 대체된다. 
+          readObject를 통해 만들어진건 바로 객체 참조가 사라짐
+        - readResolve를 인스턴스 통제 목적으로 사용한다면 객체 참조 타입 인스턴스 필드는 모두 transient로 선언해야 한다. 
+        
+### Item 90. 직렬화된 인스턴스 대신 직렬화 프록시 사용을 검토하라 
+    - 클라이언트가 확장할 수 있는 클래스에는 적용 불가, 순환관계의 클래스에 호출 불가
+    
+
